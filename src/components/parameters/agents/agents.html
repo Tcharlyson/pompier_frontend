@@ -1,0 +1,122 @@
+<div id="parameters">
+  <nav class="breadcrumb">
+    <a @click="$router.go(-1)" class="breadcrumb-item">Paramètres</a>
+    <span class="breadcrumb-item active">Agents</span>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Récapitulatif des agents</h2>
+        <template>
+          <vuetable ref="vuetable" :api-mode="false" :data="agents" :fields="fields" :css="css"></vuetable>
+        </template>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Formulaire d'ajout/d'édition</h2>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-1">
+                <label for="equipe">Équipe</label>
+                <select name="equipe" id="equipe" v-model="editAgent.equipe" class="form-control">
+                  <option value=""></option>
+                  <option value="1" :selected="editAgent.equipe === 1">1</option>
+                  <option value="2" :selected="editAgent.equipe === 2">2</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="grade">Grade</label>
+                <select name="grade" id="grade" v-model="editAgent.id_grade" class="form-control">
+                  <option value=""></option>
+                  <option v-for="grade in grades" :selected="editAgent.id_grade === grade.id" v-bind:value="grade.id">{{ grade.appelation }}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom" value="" v-model="editAgent.nom" class="form-control">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="prenom">Prenom</label>
+                <input type="text" name="prenom" id="prenom" value="" v-model="editAgent.prenom" class="form-control">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="uv">Unité de valeur</label>
+                <select name="uv" id="uv" class="form-control" v-model="editAgent.id_uv">
+                  <option value=""></option>
+                  <option v-for="uv in uvs" :selected="editAgent.id_uv === uv.id" v-bind:value="uv.id">{{ uv.appelation }}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="specialite">Spécialité</label>
+                <select name="specialite" id="specialite" class="form-control" v-model="editAgent.specialite">
+                  <option value=""></option>
+                  <option value="FDF1" :selected="editAgent.specialite === 'FDF1'">FDF1</option>
+                  <option value="FDF2" :selected="editAgent.specialite === 'FDF2'">FDF2</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1">
+                <label for="conduite">Conduite</label>
+                <select name="conduite" id="conduite" class="form-control" v-model="editAgent.conduite">
+                  <option value=""></option>
+                  <option value="VL" :selected="editAgent.conduite === 'VL'">VL</option>
+                  <option value="COD1" :selected="editAgent.conduite === 'COD1'">COD1</option>
+                  <option value="COD2" :selected="editAgent.conduite === 'COD2'">COD2</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="nomination">Nomination</label>
+                <select name="nomination" id="nomination" class="form-control" v-model="editAgent.id_nomination">
+                  <option value=""></option>
+                  <option v-for="nomination in nominations" :selected="editAgent.id_nomination === nomination.id" v-bind:value="nomination.id">{{ nomination.appelation }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-1">
+                <label for="carence">Carence</label>
+                <select name="carence" id="carence" class="form-control" v-model="editAgent.carence">
+                  <option value=""></option>
+                  <option value="0" :selected="editAgent.carence === 0">NON</option>
+                  <option value="1" :selected="editAgent.carence === 1">OUI</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1">
+                <label for="est_stagiaire">Stagiaire</label>
+                <select name="est_stagiaire" id="est_stagiaire" class="form-control" v-model="editAgent.est_stagiaire">
+                  <option value=""></option>
+                  <option value="0" :selected="editAgent.est_stagiaire === 0">NON</option>
+                  <option value="1" :selected="editAgent.est_stagiaire === 0">OUI</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="telephone">Téléphone</label>
+                <input type="text" name="telephone" id="telephone" value="" v-model="editAgent.telephone" class="form-control">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="num">Numéro abbrégé</label>
+                <input type="text" name="num" id="num" value="" v-model="editAgent.num" class="form-control">
+              </div>
+              <div class="form-group col-md-1">
+                <label for="est_admin">Administrateur</label>
+                <select name="est_admin" id="est_admin" class="form-control" v-model="editAgent.est_admin">
+                  <option value=""></option>
+                  <option value="0" :selected="editAgent.est_admin === 0">NON</option>
+                  <option value="1" :selected="editAgent.est_admin === 0">OUI</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" v-on:click="perform" class="btn btn-primary">{{ (this.editAgent && this.editAgent.id ? 'Mettre à jour' : ' Ajouter') }}</button>
+            <button v-on:click="clean" class="btn btn-danger">Vider les champs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

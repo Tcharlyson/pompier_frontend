@@ -1,0 +1,88 @@
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">CIS BRANNE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <span class="welcome_message">Bonjour, {{ currentUser.username }}</span>
+      <button v-on:click="logout" class="btn btn-info btn-md">Déconnexion</button>
+    </div>
+  </nav>
+  <div class="container-fluid space_container">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des astreintes</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Prévisualisation</h6>
+            <p class="card-text">Vous pourrez vous noter.</p>
+            <a href="https://bootsnipp.com/pradeep330" class="card-link text-primary">Accèder</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des effectifs</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Prévisualisation</h6>
+            <p class="card-text">Vous pourrez voir ou modifier les effectifs.</p>
+            <a href="https://bootsnipp.com/pradeep330" class="card-link text-secondary">Accèder</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des piquets</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Prévisualisation</h6>
+            <p class="card-text">Vous pourrez voir ou modifier les piquets.</p>
+            <a href="https://bootsnipp.com/pradeep330" class="card-link text-success">Accèder</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des départs</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Stationnaire</h6>
+            <p class="card-text">Vous pourrez voir ou modifier les départs.</p>
+            <a href="https://bootsnipp.com/pradeep330" class="card-link text-danger">Accèder</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2" v-if="currentUser.isAdmin">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Logs</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Logs des actions</h6>
+            <p class="card-text">Vous pourrez voir les actions des utilisateurs.</p>
+            <a href="https://bootsnipp.com/pradeep330" class="card-link text-dark">Accèder</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2" v-if="currentUser.isAdmin">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Paramètres</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Paramètres globaux</h6>
+            <p class="card-text">Vous pourrez voir/éditer/supprimer du personnel, etc.</p>
+            <router-link class="card-link text-warning" :to="'parameters'">Accèder</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-view></router-view>
+</div>
+  

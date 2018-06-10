@@ -1,0 +1,86 @@
+[
+  {
+    "name": "equipe",
+    "title": "Équipe",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name":"grade.appelation", 
+    "title":"Grade",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "nom",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "prenom",
+    "title": "Prénom",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "uv.appelation",
+    "title": "Unité de valeur",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "specialite",
+    "title": "Specialité",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "conduite",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "nomination.appelation",
+    "title": "Status",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "carence",
+    "callback": "transform",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "est_stagiaire",
+    "title": "Stagiaire",
+    "callback": "transform",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "telephone",
+    "title": "Téléphone",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "num",
+    "title": "Numéro abbrégé",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "est_admin",
+    "title": "Administrateur",
+    "titleClass": "text-center",
+    "dataClass": "text-center",
+    "callback": "transform"
+  },
+  {
+    "name": "__component:custom-actions",
+    "title": "Actions",
+    "titleClass":"text-center",
+    "dataClass":"text-center"
+  }
+]
