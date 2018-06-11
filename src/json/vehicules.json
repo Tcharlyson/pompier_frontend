@@ -1,0 +1,26 @@
+[
+  {
+    "name": "appelation",
+    "title": "Nom",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name":"immatriculation", 
+    "title":"Immatriculation",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "armement",
+    "title": "Capacité",
+    "titleClass": "text-center",
+    "dataClass": "text-center"
+  },
+  {
+    "name": "__component:vehicules-actions",
+    "title": "Actions",
+    "titleClass":"text-center",
+    "dataClass":"text-center"
+  }
+]

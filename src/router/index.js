@@ -4,8 +4,11 @@ import App from './../components/App'
 import Login from './../components/login/Login';
 import Parameters from './../components/parameters/Parameters';
 import Agents from './../components/parameters/agents/agents';
+import Horaires from './../components/horaires/horaires';
+import Vehicules from './../components/parameters/vehicules/vehicules';
 import Dashboard from './../components/dashboard/dashboard';
 import Header from './../components/layout/header/Header';
+
 
 
 
@@ -25,6 +28,11 @@ export default new Router({
             component: Dashboard,
             meta: { requiresAuth: true }
         },
+        {
+          path: '/horaires',
+          name: 'Horaires',
+          component: Horaires
+        }
       ]
     },
     {
@@ -41,6 +49,11 @@ export default new Router({
       path: '/parameters/agents',
       name: 'Parameters-agents',
       component: Agents
+    },
+    {
+      path: '/parameters/vehicules',
+      name: 'Parameters-vehicules',
+      component: Vehicules
     }
   ]
 })

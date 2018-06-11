@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">CIS BRANNE</a>
+    <router-link class="navbar-brand" :to="'dashboard'">CIS BRANNE</router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,16 +9,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
+          <router-link class="nav-link" :to="'dashboard'">Dashboard</router-link>
         </li>
       </ul>
       <span class="welcome_message">Bonjour, {{ currentUser.username }}</span>
       <button v-on:click="logout" class="btn btn-info btn-md">Déconnexion</button>
     </div>
   </nav>
-  <div class="container-fluid space_container">
+  <div class="container-fluid space_container" v-if="$route.name === 'Dashboard'">
     <div class="row">
       <div class="col-md-2">
         <div class="card">
@@ -26,7 +24,7 @@
             <h5 class="card-title">Gestion des astreintes</h5>
             <h6 class="card-subtitle mb-2 text-muted">Prévisualisation</h6>
             <p class="card-text">Vous pourrez vous noter.</p>
-            <a href="https://bootsnipp.com/pradeep330" class="card-link text-primary">Accèder</a>
+            <router-link class="card-link text-primary" :to="'horaires'">Accèder</router-link>
           </div>
         </div>
       </div>

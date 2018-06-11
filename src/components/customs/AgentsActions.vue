@@ -1,5 +1,5 @@
 <template>
-    <div class="custom-actions">
+    <div class="agents-actions">
       <span @click="itemAction('edit', rowData, rowIndex)">Éditer</span>
       <span v-if="currentUser.id !== rowData.id" @click="itemAction('delete', rowData, rowIndex)">Supprimer</span>
     </div>

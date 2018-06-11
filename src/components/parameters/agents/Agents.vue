@@ -4,8 +4,8 @@
 import Vue from 'vue'
 import VueTable from 'vuetable-2/src/components/Vuetable.vue';
 import { mapGetters } from 'vuex';
-import CustomActions from './../../customs/CustomActions.vue'
-Vue.component('custom-actions', CustomActions)
+import AgentsActions from './../../customs/AgentsActions.vue'
+Vue.component('agents-actions', AgentsActions)
 import AgentsJSON from './../../../json/agents.json'
 
 export default {

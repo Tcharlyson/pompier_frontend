@@ -1,0 +1,48 @@
+<div id="parameters">
+  <nav class="breadcrumb">
+    <a @click="$router.go(-1)" class="breadcrumb-item">Paramètres</a>
+    <span class="breadcrumb-item active">Véhicules</span>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Récapitulatif des véhicules</h2>
+        <template>
+          <vuetable ref="vuetable" :api-mode="false" :data="vehicules" :fields="fields" :css="css"></vuetable>
+        </template>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Formulaire d'ajout/d'édition</h2>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="appelation">Appelation *</label>
+                <input type="text" name="appelation" id="appelation" value="" v-validate="'required'" v-model="editVehicule.appelation" class="form-control">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="immatriculation">Immatriculation *</label>
+                <input type="text" name="immatriculation" id="immatriculation" value="" v-validate="'required'" v-model="editVehicule.immatriculation" class="form-control">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="armement">Capacité *</label>
+                <select name="armement" id="armement" v-model="editVehicule.armement" v-validate="'required'" class="form-control">
+                  <option value=""></option>
+                  <option v-for="index in 10" :selected="editVehicule.armement === index" v-bind:value="index">{{ index }}</option>
+                </select>
+              </div>
+            </div>
+            <p v-show="errors.any()" class="error">Tous les champs suivis d'un * sont obligatoires.</p>
+            <button type="submit" v-on:click="perform" :disabled="errors.any()" class="btn btn-primary">{{ (this.editVehicule && this.editVehicule.id ? 'Mettre à jour' : ' Ajouter') }}</button>
+            <button v-on:click="clean" class="btn btn-danger">Vider les champs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

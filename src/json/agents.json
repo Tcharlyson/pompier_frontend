@@ -78,7 +78,7 @@
     "callback": "transform"
   },
   {
-    "name": "__component:custom-actions",
+    "name": "__component:agents-actions",
     "title": "Actions",
     "titleClass":"text-center",
     "dataClass":"text-center"

@@ -21,7 +21,7 @@
           <div class="card-body">
             <div class="form-row">
               <div class="form-group col-md-1">
-                <label for="equipe">Équipe</label>
+                <label for="equipe">Équipe *</label>
                 <select name="equipe" id="equipe" v-model="editAgent.equipe" class="form-control">
                   <option value=""></option>
                   <option value="1" :selected="editAgent.equipe === 1">1</option>
@@ -29,25 +29,25 @@
                 </select>
               </div>
               <div class="form-group col-md-2">
-                <label for="grade">Grade</label>
-                <select name="grade" id="grade" v-model="editAgent.id_grade" class="form-control">
+                <label for="grade">Grade *</label>
+                <select name="grade" id="grade" v-model="editAgent.id_grade" v-validate="'required'" class="form-control">
                   <option value=""></option>
                   <option v-for="grade in grades" :selected="editAgent.id_grade === grade.id" v-bind:value="grade.id">{{ grade.appelation }}</option>
                 </select>
               </div>
               <div class="form-group col-md-2">
-                <label for="nom">Nom</label>
-                <input type="text" name="nom" id="nom" value="" v-model="editAgent.nom" class="form-control">
+                <label for="nom">Nom *</label>
+                <input type="text" name="nom" id="nom" value="" v-validate="'required'" v-model="editAgent.nom" class="form-control">
               </div>
               <div class="form-group col-md-2">
-                <label for="prenom">Prenom</label>
+                <label for="prenom">Prenom *</label>
                 <input type="text" name="prenom" id="prenom" value="" v-model="editAgent.prenom" class="form-control">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-3">
-                <label for="uv">Unité de valeur</label>
-                <select name="uv" id="uv" class="form-control" v-model="editAgent.id_uv">
+                <label for="uv">Unité de valeur *</label>
+                <select name="uv" id="uv" class="form-control" v-model="editAgent.id_uv" v-validate="'required'">
                   <option value=""></option>
                   <option v-for="uv in uvs" :selected="editAgent.id_uv === uv.id" v-bind:value="uv.id">{{ uv.appelation }}</option>
                 </select>
@@ -70,8 +70,8 @@
                 </select>
               </div>
               <div class="form-group col-md-3">
-                <label for="nomination">Nomination</label>
-                <select name="nomination" id="nomination" class="form-control" v-model="editAgent.id_nomination">
+                <label for="nomination">Nomination *</label>
+                <select name="nomination" id="nomination" class="form-control" v-model="editAgent.id_nomination" v-validate="'required'">
                   <option value=""></option>
                   <option v-for="nomination in nominations" :selected="editAgent.id_nomination === nomination.id" v-bind:value="nomination.id">{{ nomination.appelation }}</option>
                 </select>
@@ -87,31 +87,32 @@
                 </select>
               </div>
               <div class="form-group col-md-1">
-                <label for="est_stagiaire">Stagiaire</label>
-                <select name="est_stagiaire" id="est_stagiaire" class="form-control" v-model="editAgent.est_stagiaire">
+                <label for="est_stagiaire">Stagiaire *</label>
+                <select name="est_stagiaire" id="est_stagiaire" class="form-control" v-model="editAgent.est_stagiaire" v-validate="'required'">
                   <option value=""></option>
                   <option value="0" :selected="editAgent.est_stagiaire === 0">NON</option>
                   <option value="1" :selected="editAgent.est_stagiaire === 0">OUI</option>
                 </select>
               </div>
               <div class="form-group col-md-2">
-                <label for="telephone">Téléphone</label>
-                <input type="text" name="telephone" id="telephone" value="" v-model="editAgent.telephone" class="form-control">
+                <label for="telephone">Téléphone *</label>
+                <input type="text" name="telephone" id="telephone" value="" v-model="editAgent.telephone" class="form-control" v-validate="'required'">
               </div>
               <div class="form-group col-md-2">
                 <label for="num">Numéro abbrégé</label>
                 <input type="text" name="num" id="num" value="" v-model="editAgent.num" class="form-control">
               </div>
               <div class="form-group col-md-1">
-                <label for="est_admin">Administrateur</label>
-                <select name="est_admin" id="est_admin" class="form-control" v-model="editAgent.est_admin">
+                <label for="est_admin">Administrateur *</label>
+                <select name="est_admin" id="est_admin" class="form-control" v-model="editAgent.est_admin" v-validate="'required'">
                   <option value=""></option>
                   <option value="0" :selected="editAgent.est_admin === 0">NON</option>
                   <option value="1" :selected="editAgent.est_admin === 0">OUI</option>
                 </select>
               </div>
             </div>
-            <button type="submit" v-on:click="perform" class="btn btn-primary">{{ (this.editAgent && this.editAgent.id ? 'Mettre à jour' : ' Ajouter') }}</button>
+            <p v-show="errors.any()" class="error">Tous les champs suivis d'un * sont obligatoires.</p>
+            <button type="submit" v-on:click="perform" :disabled="errors.any()" class="btn btn-primary">{{ (this.editAgent && this.editAgent.id ? 'Mettre à jour' : ' Ajouter') }}</button>
             <button v-on:click="clean" class="btn btn-danger">Vider les champs</button>
           </div>
         </div>

@@ -18,6 +18,7 @@ export default {
     this.$store.dispatch('fetchGrades')
     this.$store.dispatch('fetchNominations')
     this.$store.dispatch('fetchUvs')
+    this.$store.dispatch('fetchVehicules')
   }
 }
 </script>

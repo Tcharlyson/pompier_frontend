@@ -1,4 +1,31 @@
 <div id="parameters">
-  <router-link class="card-link text-warning" :to="'parameters/agents'">Accèder</router-link>
+  <nav class="breadcrumb">
+    <a @click="$router.go(-1)" class="breadcrumb-item">Accueil</a>
+    <span class="breadcrumb-item active">Paramètres</span>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des agents</h5>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text"></p>
+            <router-link class="card-link text-warning" :to="'parameters/agents'">Accèder</router-link>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des vehicules</h5>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text"></p>
+            <router-link class="card-link text-warning" :to="'parameters/vehicules'">Accèder</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
