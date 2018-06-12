@@ -17,7 +17,7 @@ export default {
         }
       },
       date: Vue.moment(new Date()).format("YYYY-MM-DD"),
-      lol: null
+      type: 'astreinte'
     }
   },
   methods: {
@@ -49,7 +49,7 @@ export default {
         && Vue.moment(horaire.horaire_debut).format("YYYY-MM-DD") === this.date 
         && Vue.moment(horaire.horaire_fin).format("YYYY-MM-DD") === this.date 
         && value === start_time){
-          const equipeDetails = this.equipe(this.date, equipe, value, horaire.created_at)
+          const equipeDetails = this.equipe(this.date, equipe, value, horaire.created_at, horaire.type)
           if(child) {
             child.style.backgroundColor = equipeDetails.color;
             child.dataset.id = horaire.id
@@ -75,11 +75,11 @@ export default {
           if(this.timetable.element.value === 23) {
             end_date = this.date + ' ' + this.timetable.element.value + ':59:59'
           }
-          // MIDNIGHT HACK          
+          // MIDNIGHT HACK
           this.$store.dispatch('postHoraire', {
             post: {
               id_agent: this.timetable.element.id,
-              type: 'astreinte',
+              type: this.type,
               horaire_debut: this.date + ' ' + this.timetable.element.value + ':00:00',
               horaire_fin: end_date,
             },
@@ -88,7 +88,7 @@ export default {
         }
       }
     },
-    equipe(date, agent_equipe, value, created_at) {
+    equipe(date, agent_equipe, value, created_at, type_horaire) {
       var equipe = {
         number: 2,
         color: 'yellow'
@@ -105,6 +105,9 @@ export default {
       || Vue.moment(date,"YYYY-MM-DD").diff(Vue.moment(created_at,"YYYY-MM-DD"), 'days') === 1 && value < 18
       && equipe.color === 'blue') {
         equipe.color = 'yellow'
+      }
+      if(type_horaire === 'garde') {
+        equipe.color = 'blue'
       }
       return equipe
     }, 
