@@ -8,259 +8,112 @@ export default {
   data () {
     return {
       timetable: {
-        start: {
+        element: {
           value: null,
           date: null,
           target: null,
-          id: null,
-        },
-        end: {
-          value: null,
-          date: null,
-          target: null,
+          equipe: null,
           id: null,
         }
       },
-      date: {
-        start: Vue.moment(new Date()).format("YYYY-MM-DD"),
-        end: Vue.moment(new Date()).add(1, "days").format("YYYY-MM-DD")
-      }
+      date: Vue.moment(new Date()).format("YYYY-MM-DD"),
+      lol: null
     }
   },
   methods: {
-    mouseDown(e) {
-      this.timetable.start.value = parseInt(e.target.attributes[0].nodeValue,10)
-      this.timetable.start.date = e.target.attributes[1].nodeValue
-      this.timetable.start.id = e.target.parentElement.dataset.id
-      this.timetable.start.target = e.target
+    changeDate(date) {
+      this.date = Vue.moment(date).format("YYYY-MM-DD")
+      this.$store.dispatch('fetchHorairesByDate', this.date)
+      this.clearCells()
     },
-    mouseUp(e) {
-      this.timetable.end.value = parseInt(e.target.attributes[0].nodeValue,10)
-      this.timetable.end.date = e.target.attributes[1].nodeValue
-      this.timetable.end.id = e.target.parentElement.dataset.id
-      this.timetable.end.target = e.target
-      this.logic()
+    clicked(e) {
+      this.timetable.element.value = parseInt(e.target.attributes[0].nodeValue,10)
+      this.timetable.element.id = e.target.parentElement.dataset.id
+      this.timetable.element.equipe = e.target.attributes[2].nodeValue
+      this.timetable.element.date = e.target.attributes[1].nodeValue
+      this.saveHoraire()
     },
-    logic() {
-      if(this.timetable.start.value > this.timetable.end.value && this.timetable.start.value === 24) {
-        this.timetable.start.value = 0;
-        this.timetable.start.date = this.date.end
-      }
-      if(this.timetable.end.date == this.timetable.start.date 
-      && this.timetable.end.value > this.timetable.start.value
-      && this.timetable.start.id == this.timetable.end.id)
-      {
-        Vue.dialog.confirm('Êtes vous-sûr de vouloir vous ajouter le ' + this.timetable.start.date + ' de ' + this.timetable.start.value + 'h' + ' à ' + this.timetable.end.value + 'h', { okText: 'Oui', cancelText: 'Annuler'})
-        .then(() => {
-          // SAVE HORAIRES
-          this.saveHoraire()
-        })
-      } else {
-        Vue.dialog.confirm('Votre tranche horaire doit-être sélectionné jour par jour', { okText: 'J\'ai compris', cancelText: 'Annuler' })
-      }
-    },
-    // loopToAction() {
-    //   const parent = document.querySelectorAll('[data-id="'+this.timetable.start.id+'"]')[0]
-
-    //   for (let index = this.timetable.start.value; index < this.timetable.end.value; index++) {
-    //     if(this.timetable.start.value === 0) {
-    //       // HACK
-    //       var tempIndex = index
-    //       this.timetable.start.date = this.date.start
-    //       index = 24
-    //     }
-
-    //     parent.querySelector('[value="'+index+'"][data-date="'+this.timetable.start.date+'"]').style.backgroundColor = "yellow";
-
-    //     if(this.timetable.start.value === 0) { 
-    //       index = 0
-    //       this.timetable.start.value = 24
-    //       this.timetable.start.date = this.date.end
-    //     }
-    //   }
-    // },
-    fillFromDatabase(id, date, value) {
+    fillFromDatabase(id, equipe, value) {
       this.horairesByDate.map((horaire) => {
         // VARIABLES SET
         var start_time = parseInt(horaire.horaire_debut.split(' ')[1].split(':')[0])
         const end_time = parseInt(horaire.horaire_fin.split(' ')[1].split(':')[0])
+        const parent = document.querySelectorAll('tr[data-id="'+id+'"]')[0]
+        if(parent) {
+          var child = parent.querySelector('[value="'+value+'"][data-date="'+this.date+'"]')
+        }
         value = parseInt(value)
 
         // CONDITION
         if(id === horaire.id_agent 
-        && Vue.moment(horaire.horaire_debut).format("YYYY-MM-DD") === date 
-        && Vue.moment(horaire.horaire_fin).format("YYYY-MM-DD") === date 
-        && start_time <= value && value <= end_time){
-          const parent = document.querySelectorAll('[data-id="'+id+'"]')[0]
-          if(parent) {
-            // if(start_time === 0) {
-            //   value = 24
-            //   date = this.date.start
-            // }
-            parent.querySelector('[value="'+value+'"][data-date="'+date+'"]').style.backgroundColor = "yellow";
+        && Vue.moment(horaire.horaire_debut).format("YYYY-MM-DD") === this.date 
+        && Vue.moment(horaire.horaire_fin).format("YYYY-MM-DD") === this.date 
+        && value === start_time){
+          const equipeDetails = this.equipe(this.date, equipe, value, horaire.created_at)
+          if(child) {
+            child.style.backgroundColor = equipeDetails.color;
+            child.dataset.id = horaire.id
           }
         }
       })
     },
     saveHoraire() {
-      var isExist = false;
-      var deleted = false;
-      this.horairesByDate.map((horaire) => {
-
-        const start_time = parseInt(horaire.horaire_debut.split(' ')[1].split(':')[0])
-        const end_time = parseInt(horaire.horaire_fin.split(' ')[1].split(':')[0])
-        this.timetable.start.value = parseInt(this.timetable.start.value)
-        this.timetable.end.value = parseInt(this.timetable.end.value)
-        
-        if(Vue.moment(horaire.horaire_debut).format("YYYY-MM-DD") === this.timetable.start.date && horaire.id_agent == this.timetable.start.id) {
-          isExist = true
-          console.log('START')
-          console.log(this.timetable.start.value)
-          console.log(this.timetable.end.value)
-          console.log(start_time)
-          console.log(end_time)
-          console.log('END')
-
-          
-          if(this.timetable.start.value < start_time && this.timetable.end.value < end_time && (this.timetable.end.value >= start_time || this.timetable.end.value == start_time - 1)) {
-            console.log('Update horaire de début')
-            const params = {
-              id: horaire.id, 
-              update: {
-                horaire_debut: horaire.horaire_debut.replace(start_time + ':00:00', this.timetable.start.value + ':00:00'),
-              },
-              params: this.date
-            } 
-            this.$store.dispatch('putHoraire', params)
-          } else if(this.timetable.start.value > start_time && this.timetable.end.value == end_time) {
-            console.log('Delete / Update horaire de début')
-            const params = {
-              id: horaire.id, 
-              update: {
-                horaire_fin: horaire.horaire_debut.replace(start_time + ':00:00', this.timetable.start.value + ':00:00'),
-              },
-              params: this.date
-            } 
-            this.$store.dispatch('putHoraire', params).then(() => {
-              const parent = document.querySelectorAll('[data-id="'+this.timetable.start.id+'"]')[0]
-              if(parent) {
-                for(let index = this.timetable.end.value; index >= this.timetable.start.value; index--) {
-                  parent.querySelector('[value="'+index+'"][data-date="'+this.timetable.start.date+'"]').style.backgroundColor = "white";
-                }
-              }
-            })
-          } else if(this.timetable.start.value > start_time && this.timetable.end.value < end_time) {
-            console.log('Delete / Update horaire de début + fin')
-            const params = {
-              id: horaire.id, 
-              update: {
-                horaire_fin: horaire.horaire_debut.replace(start_time + ':00:00', this.timetable.start.value + ':00:00'),
-              },
-              params: this.date
-            } 
-            this.$store.dispatch('putHoraire', params).then(() => {
-              const params = {
-                post: {
-                  id_agent: this.timetable.start.id,
-                  horaire_debut: this.timetable.end.date + ' ' + this.timetable.end.value + ':00:00',
-                  horaire_fin: this.timetable.end.date + ' ' + end_time + ':00:00',
-                  type: 'astreinte'
-                },
-                params: this.date
-              }
-              this.$store.dispatch('postHoraire', params).then(() => {
-                const parent = document.querySelectorAll('[data-id="'+this.timetable.start.id+'"]')[0]
-                if(parent) {
-                  for(let index = this.timetable.end.value; index >= this.timetable.start.value; index--) {
-                    parent.querySelector('[value="'+index+'"][data-date="'+this.timetable.start.date+'"]').style.backgroundColor = "white";
-                  }
-                }
-              })
-            })
-          } else if(this.timetable.start.value == start_time && this.timetable.end.value < end_time) {
-            console.log('Delete / Update horaire de fin')
-            const params = {
-              id: horaire.id, 
-              update: {
-                horaire_debut: horaire.horaire_fin.replace(end_time + ':00:00', this.timetable.end.value + ':00:00'),
-              },
-              params: this.date
-            } 
-            this.$store.dispatch('putHoraire', params).then(() => {
-              const parent = document.querySelectorAll('[data-id="'+this.timetable.start.id+'"]')[0]
-              if(parent) {
-                for(let index = this.timetable.end.value; index >= this.timetable.start.value; index--) {
-                  parent.querySelector('[value="'+index+'"][data-date="'+this.timetable.start.date+'"]').style.backgroundColor = "white";
-                }
-              }
-            })
-          } else if((this.timetable.start.value <= end_time || this.timetable.start.value == end_time + 1) && this.timetable.end.value > end_time && this.timetable.start.value > start_time) {
-            console.log('Update horaire de fin')
-            const params = {
-              id: horaire.id, 
-              update: {
-                horaire_fin: horaire.horaire_fin.replace(end_time + ':00:00', this.timetable.end.value + ':00:00'),
-              },
-              params: this.date
-            }
-            this.$store.dispatch('putHoraire', params)
-          } else if(this.timetable.start.value == start_time && this.timetable.end.value == end_time) {
-            console.log('Delete horaire')
-            const params = {
-              id: horaire.id, 
-              params: this.date
-            }
-            this.$store.dispatch('deleteHoraire', params).then(() => {
-              // CLEAR CASES
-              const parent = document.querySelectorAll('[data-id="'+this.timetable.start.id+'"]')[0]
-              if(parent) {
-                for(let index = this.timetable.end.value; index >= this.timetable.start.value; index--) {
-                  parent.querySelector('[value="'+index+'"][data-date="'+this.timetable.start.date+'"]').style.backgroundColor = "white";
-                }
-              }
-            })
-
-          } else if(this.timetable.start.value < start_time && this.timetable.end.value > end_time) {
-            console.log('Update horaire de début et horaire de fin')
-            const params = {
-              id: horaire.id, 
-              update: {
-                horaire_debut: horaire.horaire_debut.replace(start_time + ':00:00', this.timetable.start.value + ':00:00'),
-                horaire_fin: horaire.horaire_fin.replace(end_time + ':00:00', this.timetable.end.value + ':00:00'),
-              },
-              params: this.date
-            }
-            this.$store.dispatch('putHoraire', params)
-          } else if(this.timetable.start.value > start_time && this.timetable.end.value > end_time) {
-            console.log('Ajouter un horaire')
-            const params = {
-              post: {
-                id_agent: this.timetable.start.id,
-                horaire_debut: this.timetable.start.date + ' ' + this.timetable.start.value + ':00:00',
-                horaire_fin: this.timetable.end.date + ' ' + this.timetable.end.value + ':00:00',
-                type: 'astreinte'
-              },
-              params: this.date
-            }
-            this.$store.dispatch('postHoraire', params)
+      const parent = document.querySelectorAll('tr[data-id="'+this.timetable.element.id+'"]')[0]
+      if(parent) {
+        const enfant = parent.querySelector('[value="'+this.timetable.element.value+'"][data-date="'+this.date+'"]')
+        if(enfant.dataset.id) {
+          this.$store.dispatch('deleteHoraire', {
+            id: enfant.dataset.id,
+            params: this.date
+          }).then(() => {
+            enfant.style.backgroundColor = 'white';
+            enfant.dataset.id = '';
+          })
+        } else {
+          if(this.timetable.element.value === 24) return
+          var end_date = this.date + ' ' + (this.timetable.element.value + 1) + ':00:00'
+          if(this.timetable.element.value === 23) {
+            end_date = this.date + ' ' + this.timetable.element.value + ':59:59'
           }
+          // MIDNIGHT HACK          
+          this.$store.dispatch('postHoraire', {
+            post: {
+              id_agent: this.timetable.element.id,
+              type: 'astreinte',
+              horaire_debut: this.date + ' ' + this.timetable.element.value + ':00:00',
+              horaire_fin: end_date,
+            },
+            params: this.date
+          })
         }
-        return isExist;
-      })
-
-      if(!isExist) {
-        const params = {
-          post: {
-            id_agent: this.timetable.start.id,
-            horaire_debut: this.timetable.start.date + ' ' + this.timetable.start.value + ':00:00',
-            horaire_fin: this.timetable.end.date + ' ' + this.timetable.end.value + ':00:00',
-            type: 'astreinte'
-          },
-          params: this.date
-        }
-        this.$store.dispatch('postHoraire', params)
       }
-    } 
+    },
+    equipe(date, agent_equipe, value, created_at) {
+      var equipe = {
+        number: 2,
+        color: 'yellow'
+      }
+      
+      var difference = Vue.moment(date + ' ' + value + ':00:00',"YYYY-MM-DD HH:mm:ss").diff(Vue.moment("2018-06-08 18:00:00","YYYY-MM-DD HH:mm:ss"), 'weeks')
+      if(difference % 2 === 1) {
+        equipe.number = 1
+      }
+      if(equipe.number === agent_equipe) {
+        equipe.color = 'blue'
+      }
+      if(Vue.moment(created_at,"YYYY-MM-DD").diff(Vue.moment(date,"YYYY-MM-DD"), 'days') === 0 && value >= 12
+      || Vue.moment(date,"YYYY-MM-DD").diff(Vue.moment(created_at,"YYYY-MM-DD"), 'days') === 1 && value < 18
+      && equipe.color === 'blue') {
+        equipe.color = 'yellow'
+      }
+      return equipe
+    }, 
+    clearCells() {
+      const parent = document.querySelectorAll('td')
+      parent.forEach(function(child) {
+        child.style.backgroundColor = 'white';
+      });
+    }
   },
   computed: { ...mapGetters(['agents','horairesByDate']) },
   components: {  },

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './components/App.vue'
 import Header from './components/layout/header/Header.vue'
 import VeeValidate from 'vee-validate';
+import Datepicker from 'vuejs-datepicker';
 import VuejsDialog from "vuejs-dialog"
 import router from './router'
 import store from './store'
@@ -28,6 +29,7 @@ Vue.filter('ucFirst', function (value) {
 Vue.use(VeeValidate);
 Vue.use(require('vue-moment'));
 Vue.use(VuejsDialog);
+Vue.component('datepicker', Datepicker)
 
 
 new Vue({
@@ -35,5 +37,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App, Header }
+  components: { App, Header, Datepicker }
 })

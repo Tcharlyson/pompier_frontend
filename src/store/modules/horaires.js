@@ -32,18 +32,19 @@ const horaires = {
         commit('addHoraires', response.data)
       })
     },
-    fetchHorairesByDate({ state, commit, rootState }, data) {
-      axios.get('http://localhost:8001/api/horaires?start='+ data.start + '&end=' + data.end).then(response => {
+    fetchHorairesByDate({ state, commit, rootState }, date) {
+      axios.get('http://localhost:8001/api/horaires?date='+ date).then(response => {
         if (response.status !== 200) return
         commit('addHorairesByDate', response.data)
       })
     },
     putHoraire({ state, commit, dispatch }, data) {
       axios.put('http://localhost:8001/api/horaires/' + data.id, data.update).then(response => {
-        dispatch('fetchHorairesByDate', data.params)
+        // dispatch('fetchHorairesByDate', data.params)
       })
     },
     postHoraire({ state, commit, dispatch }, data) {
+      console.log(JSON.stringify(data))
       axios.post('http://localhost:8001/api/horaires/', data.post).then(response => {
         dispatch('fetchHorairesByDate', data.params)
       })
