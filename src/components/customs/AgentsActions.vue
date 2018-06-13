@@ -25,7 +25,7 @@
             nom: data.nom,
             prenom: data.prenom,
             id_grade: data.grade.id,
-            equipe: data.equipe,
+            id_equipe: data.equipe.id,
             id_uv: data.uv.id,
             specialite: data.specialite,
             carence: data.carence,

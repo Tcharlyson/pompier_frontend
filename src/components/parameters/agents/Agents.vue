@@ -33,7 +33,7 @@ export default {
       this.$store.commit('resetAgentState')
     }
   },
-  computed: { ...mapGetters(['agents', 'grades', 'nominations', 'uvs', 'editAgent']) },
+  computed: { ...mapGetters(['agents', 'grades', 'nominations', 'uvs', 'equipes', 'editAgent']) },
   components: { vuetable: VueTable },
   created() {
     this.clean() // REMETTRE LES CHAMPS À NULL/VIDES

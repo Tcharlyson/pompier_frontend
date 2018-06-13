@@ -44,14 +44,11 @@ const horaires = {
       })
     },
     postHoraire({ state, commit, dispatch }, data) {
-      console.log(JSON.stringify(data))
-      axios.post('http://localhost:8001/api/horaires/', data.post).then(response => {
-        dispatch('fetchHorairesByDate', data.params)
-      })
+      return axios.post('http://localhost:8001/api/horaires/', data.post)
     },
     deleteHoraire({ state, commit, dispatch }, data) {
       axios.delete('http://localhost:8001/api/horaires/' + data.id).then(response => {
-        dispatch('fetchHorairesByDate', data.params)
+        // dispatch('fetchHorairesByDate', data.params)
       })
     }
   }

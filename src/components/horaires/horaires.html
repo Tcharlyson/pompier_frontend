@@ -61,30 +61,30 @@
           <th>{{ agent.grade.diminutif }}</th>
           <td>{{ agent.nom }}</td>
           <td>{{ agent.prenom }}</td>
-          <td value="0" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '0')" data-id=""></td>
-          <td value="1" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '01')" data-id=""></td>
-          <td value="2" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '02')" data-id=""></td>
-          <td value="3" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '03')" data-id=""></td>
-          <td value="4" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '04')" data-id=""></td>
-          <td value="5" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '05')" data-id=""></td>
-          <td value="6" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '06')" data-id=""></td>
-          <td value="7" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '07')" data-id=""></td>
-          <td value="8" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '08')" data-id=""></td>
-          <td value="9" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '09')" data-id=""></td>
-          <td value="10" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '10')" data-id=""></td>
-          <td value="11" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '11')" data-id=""></td>
-          <td value="12" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '12')" data-id=""></td>
-          <td value="13" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '13')" data-id=""></td>
-          <td value="14" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '14')" data-id=""></td>
-          <td value="15" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '15')" data-id=""></td>
-          <td value="16" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '16')" data-id=""></td>
-          <td value="17" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '17')" data-id=""></td>
-          <td value="18" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '18')" data-id=""></td>
-          <td value="19" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '19')" data-id=""></td>
-          <td value="20" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '20')" data-id=""></td>
-          <td value="21" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '21')" data-id=""></td>
-          <td value="22" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '22')" data-id=""></td>
-          <td value="23" :data-date="date" :data-equipe="agent.equipe" :data-exist="fillFromDatabase(agent.id, agent.equipe, '23')" data-id=""></td>
+          <td value="0" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '0')" data-id=""></td>
+          <td value="1" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '01')" data-id=""></td>
+          <td value="2" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '02')" data-id=""></td>
+          <td value="3" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '03')" data-id=""></td>
+          <td value="4" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '04')" data-id=""></td>
+          <td value="5" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '05')" data-id=""></td>
+          <td value="6" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '06')" data-id=""></td>
+          <td value="7" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '07')" data-id=""></td>
+          <td value="8" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '08')" data-id=""></td>
+          <td value="9" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '09')" data-id=""></td>
+          <td value="10" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '10')" data-id=""></td>
+          <td value="11" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '11')" data-id=""></td>
+          <td value="12" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '12')" data-id=""></td>
+          <td value="13" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '13')" data-id=""></td>
+          <td value="14" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '14')" data-id=""></td>
+          <td value="15" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '15')" data-id=""></td>
+          <td value="16" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '16')" data-id=""></td>
+          <td value="17" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '17')" data-id=""></td>
+          <td value="18" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '18')" data-id=""></td>
+          <td value="19" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '19')" data-id=""></td>
+          <td value="20" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '20')" data-id=""></td>
+          <td value="21" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '21')" data-id=""></td>
+          <td value="22" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '22')" data-id=""></td>
+          <td value="23" :data-date="date" :data-equipe="agent.equipe.id" :data-exist="fillFromDatabase(agent.id, agent.equipe.id, '23')" data-id=""></td>
         </tr>
       </tbody>
     </table>

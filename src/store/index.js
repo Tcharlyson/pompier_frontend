@@ -5,6 +5,7 @@ import horaires from './modules/horaires'
 import vehicules from './modules/vehicules'
 import grades from './modules/grades'
 import nominations from './modules/nominations'
+import equipes from './modules/equipes'
 import uvs from './modules/uvs'
 import user from './modules/user'
 import logout from './modules/logout'
@@ -23,6 +24,7 @@ const store = new Vuex.Store({
     nominations,
     uvs,
     horaires,
+    equipes
   },
   plugins: [createPersistedState()],
   actions: {

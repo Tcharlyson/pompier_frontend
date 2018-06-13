@@ -1,6 +1,6 @@
 [
   {
-    "name": "equipe",
+    "name": "equipe.appelation",
     "title": "Équipe",
     "titleClass": "text-center",
     "dataClass": "text-center"

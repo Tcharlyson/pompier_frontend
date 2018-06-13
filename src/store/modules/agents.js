@@ -6,7 +6,7 @@ const editAgentSchema = {
   nom: '',
   prenom: '',
   id_grade: null,
-  equipe: null,
+  id_equipe: null,
   id_uv: null,
   specialite: '',
   carence: false,
@@ -32,6 +32,7 @@ const agents = {
       state.agents = []
     },
     editAgent(state, agent) {
+      console.log('mdrr',JSON.stringify(agent))
       state.editAgent = { ...agent }
     },
     resetAgentState(state) {

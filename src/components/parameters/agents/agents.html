@@ -22,10 +22,9 @@
             <div class="form-row">
               <div class="form-group col-md-1">
                 <label for="equipe">Équipe *</label>
-                <select name="equipe" id="equipe" v-model="editAgent.equipe" class="form-control">
+                <select name="equipe" id="equipe" v-model="editAgent.id_equipe" v-validate="'required'" class="form-control">
                   <option value=""></option>
-                  <option value="1" :selected="editAgent.equipe === 1">1</option>
-                  <option value="2" :selected="editAgent.equipe === 2">2</option>
+                  <option v-for="equipe in equipes" :selected="editAgent.id_equipe === equipe.id" v-bind:value="equipe.id">{{ equipe.appelation }}</option>
                 </select>
               </div>
               <div class="form-group col-md-2">

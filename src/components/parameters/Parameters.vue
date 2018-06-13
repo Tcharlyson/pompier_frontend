@@ -19,6 +19,7 @@ export default {
     this.$store.dispatch('fetchNominations')
     this.$store.dispatch('fetchUvs')
     this.$store.dispatch('fetchVehicules')
+    this.$store.dispatch('fetchEquipes')
   }
 }
 </script>
