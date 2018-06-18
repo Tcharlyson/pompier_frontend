@@ -18,7 +18,7 @@
   </nav>
   <div class="container-fluid space_container" v-if="$route.name === 'Dashboard'">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Gestion des astreintes</h5>
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Gestion des effectifs</h5>
@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Gestion des piquets</h5>
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Gestion des départs</h5>
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <div class="col-md-2" v-if="currentUser.isAdmin">
+      <div class="col-md-3" v-if="currentUser.isAdmin">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Logs</h5>
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2" v-if="currentUser.isAdmin">
+      <div class="col-md-3" v-if="currentUser.isAdmin">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Paramètres</h5>

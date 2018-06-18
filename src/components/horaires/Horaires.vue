@@ -17,12 +17,14 @@ export default {
         }
       },
       date: Vue.moment(new Date()).format("YYYY-MM-DD"),
-      type: 'astreinte'
+      type: 'astreinte', 
+      href: null
     }
   },
   methods: {
     changeDate(date) {
       this.date = Vue.moment(date).format("YYYY-MM-DD")
+      this.href = 'http://localhost:8001/api/astreintes?from=' + this.date + '&to=' + Vue.moment(this.date).add(1, 'days').format("YYYY-MM-DD")
       this.$store.dispatch('fetchHorairesByDate', this.date)
       this.clearCells()
     },
@@ -33,7 +35,8 @@ export default {
         this.timetable.element.equipe = e.target.attributes[2].nodeValue
         this.timetable.element.date = e.target.attributes[1].nodeValue
       }
-      if(Vue.moment(this.timetable.element.date + ' ' + this.timetable.element.value + ':00:00',"YYYY-MM-DD HH:mm:ss").isAfter(Vue.moment(new Date(),"YYYY-MM-DD HH:mm:ss"))) {
+
+      if(Vue.moment(this.timetable.element.date + ' ' + this.timetable.element.value + ':00:00',"YYYY-MM-DD HH").diff(Vue.moment().format("YYYY-MM-DD HH")) >= 0) {
         this.saveHoraire()
       } else {
         this.$dialog.confirm('Vous ne pouvez pas éditer une astreinte/garde antérieure', {okText: 'J\'ai compris',cancelText: 'Fermer'})
@@ -93,7 +96,7 @@ export default {
             },
             params: this.date
           }).then((response) => {
-            const equipeDetails = this.equipe(this.date, this.timetable.element.equipe, this.timetable.element.value, Vue.moment(new Date()).format("YYYY-MM-DD"), this.type)
+            const equipeDetails = this.equipe(this.date, this.timetable.element.equipe, this.timetable.element.value, Vue.moment(Vue.moment()).format("YYYY-MM-DD HH:mm:ss"), this.type)
             enfant.style.backgroundColor = equipeDetails.color;
             enfant.dataset.id = response.data.id;
           })
@@ -105,18 +108,23 @@ export default {
         number: 2,
         color: 'yellow'
       }
-      
+      var hourCreated = parseInt(created_at.split(' ')[1].split(':')[0]);
       var difference = Vue.moment(date + ' ' + value + ':00:00',"YYYY-MM-DD HH:mm:ss").diff(Vue.moment("2018-06-08 18:00:00","YYYY-MM-DD HH:mm:ss"), 'weeks')
+      
       if(difference % 2 === 1) {
         equipe.number = 1
       }
       if(parseInt(equipe.number) === parseInt(agent_equipe)) {
         equipe.color = 'blue'
       }
-      if(Vue.moment(created_at,"YYYY-MM-DD").diff(Vue.moment(date,"YYYY-MM-DD"), 'days') === 0 && value >= 12
-      || Vue.moment(date,"YYYY-MM-DD").diff(Vue.moment(created_at,"YYYY-MM-DD"), 'days') === 1 && value < 18
-      && equipe.color === 'blue') {
-        equipe.color = 'yellow'
+      if(Vue.moment(date,"YYYY-MM-DD").diff(Vue.moment(created_at,"YYYY-MM-DD"), 'days') === 0 && (hourCreated < 12 || hourCreated >= 12) && value < 18) {
+        equipe.color = 'yellow';
+      }
+      if(Vue.moment(date,"YYYY-MM-DD").diff(Vue.moment(created_at,"YYYY-MM-DD"), 'days') === 1 && hourCreated >= 12 && value < 18) {
+        equipe.color = 'yellow';
+      }
+      if(Vue.moment(date,"YYYY-MM-DD").diff(Vue.moment(created_at,"YYYY-MM-DD"), 'days') === 0 && hourCreated >= 12 && value >= 18) {
+        equipe.color = 'yellow';
       }
       if(type_horaire === 'garde') {
         equipe.color = 'blue'
@@ -134,6 +142,7 @@ export default {
   components: {  },
   created() {
     this.$store.dispatch('fetchHorairesByDate', this.date)
+    this.href = 'http://localhost:8001/api/astreintes?from=' + this.date + '&to=' + Vue.moment(this.date).add(1, 'days').format("YYYY-MM-DD")
   }
 }
 </script>
