@@ -22,8 +22,12 @@
         <br>
       </div>
       <div class="col-md-3">
-        <h4>Générer la feuille :</h4>
-        <a target="_blank" :href="href">Générer</a>
+        <h4>Générer l'astreinte :</h4>
+        <a target="_blank" :href="'http://localhost:8001/api/astreintes?from=' + date">Générer</a>
+      </div>
+      <div class="col-md-3">
+        <h4>Générer l'effectif :</h4>
+        <a target="_blank" :href="'http://localhost:8001/api/effectifs?from=' + date">Générer</a>
       </div>
     </div>
     <div class="row">

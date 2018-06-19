@@ -32,7 +32,6 @@ const agents = {
       state.agents = []
     },
     editAgent(state, agent) {
-      console.log('mdrr',JSON.stringify(agent))
       state.editAgent = { ...agent }
     },
     resetAgentState(state) {

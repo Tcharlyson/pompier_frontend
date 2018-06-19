@@ -17,14 +17,12 @@ export default {
         }
       },
       date: Vue.moment(new Date()).format("YYYY-MM-DD"),
-      type: 'astreinte', 
-      href: null
+      type: 'astreinte',
     }
   },
   methods: {
     changeDate(date) {
       this.date = Vue.moment(date).format("YYYY-MM-DD")
-      this.href = 'http://localhost:8001/api/astreintes?from=' + this.date + '&to=' + Vue.moment(this.date).add(1, 'days').format("YYYY-MM-DD")
       this.$store.dispatch('fetchHorairesByDate', this.date)
       this.clearCells()
     },
@@ -142,7 +140,6 @@ export default {
   components: {  },
   created() {
     this.$store.dispatch('fetchHorairesByDate', this.date)
-    this.href = 'http://localhost:8001/api/astreintes?from=' + this.date + '&to=' + Vue.moment(this.date).add(1, 'days').format("YYYY-MM-DD")
   }
 }
 </script>
